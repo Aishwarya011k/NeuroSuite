@@ -25,7 +25,7 @@ export default function Navbar() {
         
         {/* Desktop Nav Links */}
         <div className="hidden md:flex gap-8">
-          <Link to="/" className="text-gray-300 hover:text-blue-300 font-medium transition">Home</Link>
+          <Link to="" className="text-gray-300 hover:text-blue-300 font-medium transition">Home</Link>
           <a href="#" className="text-gray-300 hover:text-blue-300 font-medium transition">About</a>
           <a href="#" className="text-gray-300 hover:text-blue-300 font-medium transition">Features</a>
           <a href="#" className="text-gray-300 hover:text-blue-300 font-medium transition">Services</a>

@@ -8,8 +8,8 @@ const Hero = () => {
     <section className="min-h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-between px-4 py-8 lg:py-0">
       {/* Text Content (40%) */}
       <div className="w-full lg:w-[40%] space-y-6 text-left z-10">
-        <h1 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold text-gray-100 leading-tight">
-          Revolutionizing <span className="text-blue-400">Neural</span> Healthcare
+        <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-gray-100 leading-tight">
+          Introducing!, <span className="text-4xl md:text-5xl lg:text-6xl text-blue-400">NeuroSuite</span>
         </h1>
         <p className="font-poppins text-lg text-gray-300 leading-relaxed max-w-xl">
           Advanced AI-powered solutions for neurological diagnostics and treatment planning. Experience the future of healthcare with NeuroSuite's cutting-edge technology.
@@ -25,14 +25,14 @@ const Hero = () => {
       </div>
 
       {/* 3D Brain Model (60%) */}
-      {/* <div className="w-full lg:w-[60%] h-[400px] lg:h-[600px] relative">
+       <div className="w-full lg:w-[60%] h-[400px] lg:h-[600px] relative">
         <Canvas>
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           <BrainModel />
           <OrbitControls enableZoom={false} autoRotate />
         </Canvas>
-      </div> */}
+      </div> 
     </section>
   );
 };

@@ -2,14 +2,14 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import BrainModel from './BrainModel';
-
+import { Typewriter } from 'react-simple-typewriter';
 const Hero = () => {
   return (
     <section className="min-h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-between px-4 py-8 lg:py-0">
       {/* Text Content (40%) */}
       <div className="w-full lg:w-[40%] space-y-6 text-left z-10">
         <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-gray-100 leading-tight">
-          Introducing!, <span className="text-4xl md:text-5xl lg:text-6xl text-blue-400">NeuroSuite</span>
+          Introducing!, <span className="text-4xl md:text-5xl lg:text-6xl text-blue-400"><Typewriter words={["NeuroSuite"]} loop cursor cursorStyle="|" /></span>
         </h1>
         <p className="font-poppins text-lg text-gray-300 leading-relaxed max-w-xl">
           Advanced AI-powered solutions for neurological diagnostics and treatment planning. Experience the future of healthcare with NeuroSuite's cutting-edge technology.
@@ -38,3 +38,8 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
+
+
+  

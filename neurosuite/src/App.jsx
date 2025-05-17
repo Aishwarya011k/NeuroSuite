@@ -8,6 +8,7 @@ import SuccessPage from './components/SuccessPage';
 import Profile from './components/Profile';
 import { useAuth } from './context/AuthContext';
 
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -20,8 +21,11 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+    
       <div className="min-h-screen w-full bg-gradient-to-b from-gray-950 via-gray-900 to-neutral-900">
-        <Navbar />
+         
+           <Navbar />
+       
         <main className="container mx-auto px-4 text-gray-100">
           <Routes>
             <Route path="/" element={<Hero />} />

@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../services/auth';
 import { useAuth } from '../context/AuthContext';
 import LoadSpinner from './LoadSpinner';
+import { Typewriter } from 'react-simple-typewriter';
+
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,7 +50,8 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl shadow-xl border border-gray-800">
-        <h2 className="text-3xl font-bold text-center text-blue-100 mb-8">Login</h2>
+      <h2 className='items-center text-blue-400'><Typewriter words={["Welcome Back!"]} loop cursor cursorStyle="|" /></h2>
+        <h3 className="text-3xl font-bold text-center text-blue-100 mb-8">Login</h3>
         
         {error && (
           <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded mb-6">

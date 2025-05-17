@@ -7,6 +7,9 @@ import Login from './components/Login';
 import SuccessPage from './components/SuccessPage';
 import Profile from './components/Profile';
 import { useAuth } from './context/AuthContext';
+import Features from './components/Features';
+import EEGDecoder from './components/EEGDecoder';
+
 
 
 // Protected Route Component
@@ -28,7 +31,11 @@ function App() {
        
         <main className="container mx-auto px-4 text-gray-100">
           <Routes>
-            <Route path="/" element={<Hero />} />
+            <Route path="/" element={
+              <>
+              <Hero />
+              <Features/>
+              </>} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/success" element={<SuccessPage />} />
@@ -40,7 +47,11 @@ function App() {
                 </ProtectedRoute>
               } 
             />
-          </Routes>
+            {/*<Route path='/about' element={<About />}/>*/}
+            <Route path='/features' element={<Features />}/>
+              <Route path="/eeg-decoder" element={<EEGDecoder />} />
+             // ...other routes...
+            </Routes>
         </main>
       </div>
     </AuthProvider>

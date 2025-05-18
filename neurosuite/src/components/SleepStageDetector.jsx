@@ -6,6 +6,14 @@ import { Typewriter } from 'react-simple-typewriter';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+const STAGE_ICONS = {
+  'Wake': '👀',
+  'N1': '😌',
+  'N2': '💫',
+  'N3/N4': '😴',
+  'REM': '🌙'
+};
+
 const SleepStageDetector = () => {
   const { user, tokens } = useAuth();
   const navigate = useNavigate();
@@ -236,34 +244,20 @@ const SleepStageDetector = () => {
               
               {/* Current Stage */}
               <div className="mb-8 p-6 bg-blue-900/20 rounded-lg border border-blue-800/50">
-                <div className="text-center">
-                  <h3 className="text-xl text-blue-200 mb-2">Current Sleep Stage</h3>
-                  <div className="text-3xl font-bold text-blue-400 mb-2">
-                    {results.currentStage}
+                <div className="text-center space-y-6">
+                  <h3 className="text-xl text-blue-200">Current Sleep Stage</h3>
+                  <div className="text-6xl mb-4">
+                    {STAGE_ICONS[results.currentStage] || '🧠'}
                   </div>
-                  <p className="text-gray-400">
-                    {getStageDescription(results.currentStage)}
-                  </p>
+                  <div className="text-4xl font-bold text-blue-400 flex items-center justify-center gap-3">
+                    <span>{results.currentStage}</span>
+                  </div>
+                  <div className="max-w-2xl mx-auto mt-4">
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      {getStageDescription(results.currentStage)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-
-              {/* Stage Probabilities */}
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {sleepStages.map((stage, index) => (
-                  <div 
-                    key={stage.id}
-                    className={`text-center p-4 rounded-lg ${
-                      results.stageId === stage.id 
-                        ? 'bg-blue-600/20 border border-blue-500/50' 
-                        : 'bg-gray-700/50'
-                    }`}
-                  >
-                    <div className="text-sm text-gray-400">{stage.name}</div>
-                    <div className="text-xl font-bold text-blue-300">
-                      {results.probabilities[index]}%
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
 

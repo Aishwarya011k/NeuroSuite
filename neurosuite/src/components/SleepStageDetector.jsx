@@ -3,8 +3,6 @@ import { FaBed, FaChartArea, FaFileDownload, FaInfoCircle } from 'react-icons/fa
 import LoadingSpinner from './LoadSpinner';
 import { eegApi } from '../services/eegApi';
 import { Typewriter } from 'react-simple-typewriter';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 const STAGE_ICONS = {
   'Wake': '👀',
@@ -15,15 +13,6 @@ const STAGE_ICONS = {
 };
 
 const SleepStageDetector = () => {
-  const { user, tokens } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user || !tokens?.accessToken) {
-      navigate('/login');
-    }
-  }, [user, tokens, navigate]);
-
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
@@ -45,51 +34,20 @@ const SleepStageDetector = () => {
   }, []);
 
   const handleFileUpload = async (event) => {
-    try {
-      const uploadedFile = event.target.files[0];
-      if (!uploadedFile) {
-        setError('No file selected');
-        return;
-      }
-
-      if (!uploadedFile.name.toLowerCase().endsWith('.edf')) {
-        setError('Please upload a valid EDF file');
-        return;
-      }
-
-      // Check file size (e.g., max 100MB)
-      const maxSize = 100 * 1024 * 1024; // 100MB in bytes
-      if (uploadedFile.size > maxSize) {
-        setError('File size too large. Maximum size is 100MB');
-        return;
-      }
-
-      setFile(uploadedFile);
-      setError('');
-      setLoading(true);
-
-      try {
-        const info = await eegApi.getFileInfo(uploadedFile);
-        setFileInfo(info);
-      } catch (err) {
-        setError(err.message || 'Failed to read file information');
-        setFile(null);
-      } finally {
-        setLoading(false);
-      }
-    } catch (err) {
-      setError('Error processing file: ' + err.message);
-      setFile(null);
-      setLoading(false);
+    const uploadedFile = event.target.files[0];
+    if (!uploadedFile?.name.endsWith('.edf')) {
+      setError('Please upload a valid EDF file');
+      return;
     }
-  };
 
-  // Update the file drop handler
-  const handleFileDrop = (e) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile) {
-      handleFileUpload({ target: { files: [droppedFile] } });
+    setFile(uploadedFile);
+    setError('');
+
+    try {
+      const info = await eegApi.getFileInfo(uploadedFile);
+      setFileInfo(info);
+    } catch (err) {
+      setError('Failed to read file information');
     }
   };
 
@@ -116,6 +74,14 @@ const SleepStageDetector = () => {
       setError('Error analyzing sleep data: ' + err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFileDrop = (e) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      handleFileUpload({ target: { files: [droppedFile] } });
     }
   };
 
@@ -243,16 +209,16 @@ const SleepStageDetector = () => {
               </h2>
               
               {/* Current Stage */}
-              <div className="mb-8 p-6 bg-blue-900/20 rounded-lg border border-blue-800/50">
-                <div className="text-center space-y-6">
-                  <h3 className="text-xl text-blue-200">Current Sleep Stage</h3>
-                  <div className="text-6xl mb-4">
-                    {STAGE_ICONS[results.currentStage] || '🧠'}
+              <div className="p-8 bg-blue-900/20 rounded-lg border border-blue-800/50">
+                <div className="text-center space-y-4">
+                  <h3 className="text-xl text-blue-200">Detected Sleep Stage</h3>
+                  <div className="text-6xl">
+                    {STAGE_ICONS[results.currentStage]}
                   </div>
-                  <div className="text-4xl font-bold text-blue-400 flex items-center justify-center gap-3">
-                    <span>{results.currentStage}</span>
+                  <div className="text-4xl font-bold text-blue-400">
+                    {results.currentStage}
                   </div>
-                  <div className="max-w-2xl mx-auto mt-4">
+                  <div className="max-w-2xl mx-auto">
                     <p className="text-lg text-gray-300 leading-relaxed">
                       {getStageDescription(results.currentStage)}
                     </p>

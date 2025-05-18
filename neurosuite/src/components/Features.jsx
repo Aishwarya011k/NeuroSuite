@@ -40,8 +40,8 @@ const Features = () => {
     },
     {
       icon: <FaLaptopMedical className="w-8 h-8 text-blue-400" />,
-      title: "Clinical Integration",
-      description: "Seamless integration with existing medical systems and workflows, supporting efficient patient care and research."
+      title: "Emotion Recognition",
+      description: ""
     }
   ];
 

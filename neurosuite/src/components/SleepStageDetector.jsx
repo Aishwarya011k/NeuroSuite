@@ -3,6 +3,8 @@ import { FaBed, FaChartArea, FaFileDownload, FaInfoCircle } from 'react-icons/fa
 import LoadingSpinner from './LoadSpinner';
 import { eegApi } from '../services/eegApi';
 import { Typewriter } from 'react-simple-typewriter';
+import { useAuth } from '../context/AuthContext'; // Fixed import path
+import { useNavigate } from 'react-router-dom';
 
 const STAGE_ICONS = {
   'Wake': '👀',
@@ -13,6 +15,18 @@ const STAGE_ICONS = {
 };
 
 const SleepStageDetector = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login', { 
+        state: { from: '/sleep-detector' },
+        replace: true 
+      });
+    }
+  }, [user, navigate]);
+
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);

@@ -12,6 +12,7 @@ import EEGDecoder from './components/EEGDecoder';
 import SleepStageDetector from './components/SleepStageDetector';
 import About from './components/About';
 import Dashboard from './components/Dashboard';
+import EmotionRecognizer from './components/EmotionRecognizer';
 
 
 
@@ -50,14 +51,36 @@ function App() {
             />
             {/*<Route path='/about' element={<About />}/>*/}
             <Route path='/features' element={<Features />}/>
-              <Route path="/eeg-decoder" element={<EEGDecoder />} />
-              <Route path="/sleep-detector" element={<SleepStageDetector />} />
+              <Route 
+                path="/eeg-decoder" 
+                element={
+                  <ProtectedRoute>
+                    <EEGDecoder />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/sleep-detector" 
+                element={
+                  <ProtectedRoute>
+                    <SleepStageDetector />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="/about" element={<About />} />
               <Route 
                 path="/dashboard" 
                 element={
                   <ProtectedRoute>
                     <Dashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/emotion-recognizer" 
+                element={
+                  <ProtectedRoute>
+                    <EmotionRecognizer />
                   </ProtectedRoute>
                 } 
               />

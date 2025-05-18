@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCloudUploadAlt, FaBrain, FaInfoCircle } from 'react-icons/fa';
 import LoadingSpinner from './LoadSpinner';
 import { Typewriter } from 'react-simple-typewriter';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const EEGDecoder = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  // Fix: Use useEffect instead of React.useEffect
+  useEffect(() => {
+    if (!user) {
+      navigate('/login', { 
+        state: { from: '/eeg-decoder' },
+        replace: true 
+      });
+    }
+  }, [user, navigate]);
+
   const [file, setFile] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');

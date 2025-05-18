@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBrain, FaBed, FaChartLine, FaUserMd, FaFileDownload, FaClock } from 'react-icons/fa';
+import { FaBrain, FaBed, FaChartLine, FaUserMd, FaFileDownload, FaClock, FaLaptopMedical } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Typewriter } from 'react-simple-typewriter';
@@ -42,20 +42,31 @@ const RecentActivity = ({ date, action, status }) => (
   </div>
 );
 
-const FeatureCard = ({ icon, title, description, onClick }) => (
-  <div 
-    onClick={onClick}
-    className="bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-blue-500/50 transition-all cursor-pointer group"
-  >
-    <div className="flex flex-col items-center text-center space-y-4">
-      <div className="p-4 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-all">
-        {icon}
+const FeatureCard = ({ icon, title, description, link, comingSoon }) => {
+  const navigate = useNavigate();
+  
+  return (
+    <div 
+      onClick={() => !comingSoon && navigate(link)}
+      className={`bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700 
+                  transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10
+                  ${!comingSoon && 'hover:border-blue-500/50 cursor-pointer'}`}
+    >
+      <div className="flex flex-col items-center text-center space-y-4">
+        <div className="p-4 bg-blue-500/10 rounded-lg">
+          {icon}
+        </div>
+        <h3 className="text-xl font-semibold text-blue-100">{title}</h3>
+        <p className="text-gray-400">{description}</p>
+        {comingSoon && (
+          <span className="inline-block px-3 py-1 text-sm bg-blue-500/20 text-blue-300 rounded-full">
+            Coming Soon
+          </span>
+        )}
       </div>
-      <h3 className="text-xl font-semibold text-blue-100">{title}</h3>
-      <p className="text-gray-400">{description}</p>
     </div>
-  </div>
-);
+  );
+};
 
 const RecentFeatureCard = ({ date, feature, status }) => (
   <div className="bg-gray-800/40 backdrop-blur-sm p-4 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-all">
@@ -110,21 +121,22 @@ const Dashboard = () => {
     {
       icon: <FaBrain className="w-8 h-8 text-blue-400" />,
       title: "Mind Decoder",
-      description: "Analyze brain signals and visualize neural activity patterns in real-time",
-      onClick: () => navigate('/eeg-decoder')
+      description: "Visualize and decode brain activity patterns from EEG signals in real-time",
+      link: "/eeg-decoder"
     },
     {
       icon: <FaBed className="w-8 h-8 text-blue-400" />,
       title: "Sleep Stage Analysis",
-      description: "Identify and classify different stages of sleep from EEG recordings",
-      onClick: () => navigate('/sleep-detector')
+      description: "Advanced sleep stage classification using AI-powered EEG analysis",
+      link: "/sleep-detector"
     },
     {
-      icon: <FaChartLine className="w-8 h-8 text-blue-400" />,
-      title: "View Reports",
-      description: "Access and analyze your previous analysis results and reports",
-      onClick: () => navigate('/reports')
-    }
+      icon: <FaLaptopMedical className="w-8 h-8 text-blue-400" />,
+      title: "Emotion Recognition",
+      description: "Detect emotional states through EEG pattern analysis",
+      link: "/emotion-recognizer"
+    },
+   
   ];
 
   const recentFeatures = [
@@ -142,46 +154,43 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold text-blue-100">
             Welcome back, <span className="text-blue-400">{user?.full_name}</span>
           </h1>
-          <p className="text-gray-400">Select a feature to get started</p>
+          <p className="text-gray-400">Access your neuro-analysis tools below</p>
         </div>
 
-        {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
           ))}
         </div>
 
         {/* Recent Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Quick Tips */}
-          <div className="bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
-            <h2 className="text-xl font-semibold text-blue-100 mb-4">Quick Tips</h2>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <span>Use Mind Decoder for real-time brain activity visualization</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <span>Sleep Stage Analysis works best with EDF format files</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <span>View your analysis history in the Reports section</span>
-              </li>
-            </ul>
+        <div className="bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
+          <h2 className="text-xl font-semibold text-blue-100 mb-6">Recently Used Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {recentFeatures.map((item, index) => (
+              <RecentFeatureCard key={index} {...item} />
+            ))}
           </div>
+        </div>
 
-          {/* Recently Used Features */}
-          <div className="bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
-            <h2 className="text-xl font-semibold text-blue-100 mb-4">Recently Used Features</h2>
-            <div className="space-y-3">
-              {recentFeatures.map((item, index) => (
-                <RecentFeatureCard key={index} {...item} />
-              ))}
-            </div>
-          </div>
+        {/* Quick Tips */}
+        <div className="mt-12 bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
+          <h2 className="text-xl font-semibold text-blue-100 mb-4">Quick Tips</h2>
+          <ul className="space-y-3 text-gray-300">
+            <li className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span>Use Mind Decoder for real-time brain activity visualization</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span>Sleep Stage Analysis works best with EDF format files</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span>Try our new Emotion Recognition feature for sentiment analysis</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

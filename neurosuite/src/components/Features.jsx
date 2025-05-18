@@ -28,14 +28,15 @@ const Features = () => {
   const features = [
     {
       icon: <FaBrain className="w-8 h-8 text-blue-400" />,
-      title: "Visualize your mind in a Click ",
+      title: "Visualize your mind in a Click",
       description: "Advanced EEG signal processing with real-time monitoring and analysis of brain wave patterns for accurate neurological assessment.",
       link: "/eeg-decoder"
     },
     {
       icon: <FaChartLine className="w-8 h-8 text-blue-400" />,
-      title: "Data Visualization",
-      description: "Interactive visualization tools for EEG data with customizable displays and comprehensive reporting capabilities."
+      title: "Sleep Stage Detector",
+      description: "Interactive visualization tools for EEG data with customizable displays and comprehensive reporting capabilities.",
+      link: "/sleep-detector"
     },
     {
       icon: <FaLaptopMedical className="w-8 h-8 text-blue-400" />,

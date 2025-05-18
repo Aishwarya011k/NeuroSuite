@@ -3,7 +3,11 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import BrainModel from './BrainModel';
 import { Typewriter } from 'react-simple-typewriter';
+import { useNavigate } from 'react-router-dom';
+
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="min-h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row items-center justify-between px-4 py-8 lg:py-0">
       {/* Text Content (40%) */}
@@ -15,7 +19,10 @@ const Hero = () => {
           Advanced AI-powered solutions for neurological diagnostics and treatment planning. Experience the future of healthcare with NeuroSuite's cutting-edge technology.
         </p>
         <div className="flex gap-4 pt-4">
-          <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+          <button
+            onClick={() => navigate('/about')}
+            className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold"
+          >
             Get Started
           </button>
           <button className="px-6 py-3 border border-gray-600 text-gray-200 font-semibold rounded-lg hover:bg-gray-800 transition">
@@ -42,4 +49,3 @@ export default Hero;
 
 
 
-  

@@ -9,6 +9,8 @@ import Profile from './components/Profile';
 import { useAuth } from './context/AuthContext';
 import Features from './components/Features';
 import EEGDecoder from './components/EEGDecoder';
+import SleepStageDetector from './components/SleepStageDetector';
+import About from './components/About';
 
 
 
@@ -50,6 +52,8 @@ function App() {
             {/*<Route path='/about' element={<About />}/>*/}
             <Route path='/features' element={<Features />}/>
               <Route path="/eeg-decoder" element={<EEGDecoder />} />
+              <Route path="/sleep-detector" element={<SleepStageDetector />} />
+              <Route path="/about" element={<About />} />
              // ...other routes...
             </Routes>
         </main>

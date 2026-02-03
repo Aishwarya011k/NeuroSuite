@@ -108,4 +108,4 @@ The app keeps ML and signal-processing logic on server endpoints (see `src/servi
 - Protected routes require authentication; tokens are stored in `localStorage` and attached to requests by the services.
 - The backend is expected to expose REST endpoints for `/eeg/*` and `/emotion/*` (see `src/services` for exact routes); adjust `API_BASE_URL` in `src/services/api.js` to point at your server.
 
-If you'd like, I can add an `.env.example` with `VITE_API_BASE_URL`, CI workflow, and README badges next.
+
